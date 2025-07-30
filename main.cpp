@@ -313,7 +313,11 @@ int main()
             {"48 89 5C 24 ? 48 89 74 24 ? 48 89 7C 24 ? 45 33 DB 4C 8B D1", "remapUserdataTypes", "lvmload"},
             {"33 C0 4C 8B D9 8B C8 66 0F 1F 84 00", "readVarInt", "lvmload"},
             {"48 89 54 24 ? 48 89 4C 24 ? 55 53 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? 48 8B 7A", "loadsafe", "lvmload"},
-            {"4C 89 44 24 ? 48 89 4C 24 ? 53 56 57 41 54 41 55 41 56 41 57 48 81 EC ? ? ? ? 45 8B E9", "luau_load", "lvmload"}
+            {"4C 89 44 24 ? 48 89 4C 24 ? 53 56 57 41 54 41 55 41 56 41 57 48 81 EC ? ? ? ? 45 8B E9", "luau_load", "lvmload"},
+
+            // instance
+            {"48 89 5C 24 ? 48 89 4C 24 ? 55 56 57 41 54 41 55 41 56 41 57 48 8D 6C 24 ? 48 81 EC ? ? ? ? 4C 8B F1 33 FF", "new", "instance"},
+            {"48 89 5C 24 ? 55 56 57 41 54 41 55 41 56 41 57 48 83 EC ? 48 8B D9 48 85 C9", "fromExisting", "instance"}
     };
 
     uintptr_t startAddress = moduleBase;
