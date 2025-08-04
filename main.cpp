@@ -189,7 +189,7 @@ int main()
     SIZE_T moduleSize = BaseSize(pid);
 
     std::vector<Pattern> patterns = {
-            // lmem
+                       // lmem
             {"48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 48 83 EC ? 48 8B F1 49 63 E8", "newpage", "lmem"},
             {"48 89 5C 24 ? 57 48 83 EC ? 48 8B FA 41 0F B6 D9", "newclasspage", "lmem"},
             {"48 83 EC ? 4D 8B D1 4C 8B D9 4D 8B 49", "freeclasspage", "lmem"},
@@ -263,16 +263,18 @@ int main()
             {"48 89 5C 24 ? 48 89 6C 24 ? 56 41 54 41 55 41 56 41 57 48 83 EC ? 45 33 E4", "luaV_gettable", "lvmutils"},
             {"48 8B C4 4C 89 48 ? 4C 89 40 ? 48 89 48 ? 55 53 57", "luaV_settable", "lvmutils"},
             {"48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 41 54 41 56 41 57 48 83 EC ? 8B 44 24", "luaV_getimport", "lvmutils"},
+
             // lgc
             {"48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 41 56 41 57 48 83 EC ? 48 8B 59 ? B8", "luaC_step", "lgc"},
-
 
             // misc
             {"48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC ? 49 8B F8 48 8B F2 48 8B D9 8B 81", "GetLuaState", "misc"},
             {"48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 48 83 EC ? 48 8B EA 48 8B F9 48 85 D2 0F 84 ? ? ? ? 48 8B 5A ? E8 ? ? ? ? 44 0F B7 8B ? ? ? ? 44 0F B7 80", "ReuqestCode", "misc"},
             {"48 89 54 24 ? 4C 89 44 24 ? 4C 89 4C 24 ? 55 53 56 57 41 54 41 55", "RbxPrint", "misc"},
+            {"48 89 5C 24 ? 48 89 7C 24 ? 55 48 8D 6C 24 ? 48 81 EC ? ? ? ? 48 8B FA 48 8B D9 48 8B 05", "RobloxLogCrash", "misc"},
             {"? ? ? 83 F8 ? 77 ? 48 8D 15 ? ? ? ? 8B 8C 82 ? ? ? ? 48 03 CA FF E1 48 B8", "get_capabilites", "misc"},
             {"48 89 4C 24 ? 48 89 54 24 ? 4C 89 44 24 ? 4C 89 4C 24 ? 48 83 EC ? 48 8D 4C 24", "std_runtime_error", "misc"},
+            {"40 53 48 83 EC ? 48 8B D9 8B CA 83 E9", "error_code_check", "misc"},
 
             // Rbx::LuaBridge
             {"48 89 5C 24 ? 4C 89 4C 24 ? 48 89 54 24 ? 55 56 57 41 54 41 55 41 56 41 57 48 83 EC ? 49 63 F8", "Bridge_registerClass", "LuaBridge"},
@@ -284,6 +286,7 @@ int main()
             {"48 8B C4 44 89 48 ? 4C 89 40 ? 48 89 50 ? 48 89 48 ? 53", "resume", "ScriptContext"},
             {"40 53 55 56 57 41 56 48 83 EC ? 48 8B D9 48 8B 49", "sandboxThread", "ScriptContext"},
             {"48 89 5C 24 ? 48 89 54 24 ? 48 89 4C 24 ? 55 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 ? ? ? ? B8 ? ? ? ? E8 ? ? ? ? 48 2B E0 41 8B D9", "openState", "ScriptContext"},
+            {"48 8B C4 48 89 50 ? 48 89 48 ? 53 56 57 41 54 41 55 41 56 41 57 48 81 EC ? ? ? ? 0F 29 70 ? 0F 29 78 ? 4C 8B E2", "startScript", "ScriptContext"},
             {"48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 41 54 41 55 41 56 41 57 48 83 EC ? 48 8B 51", "Lua_protect_metatable", "ScriptContext"},
             {"40 53 48 83 EC ? 48 8B C2 48 8B D9 FF 15", "loadLibraryProtected", "ScriptContext"},
 
@@ -317,7 +320,19 @@ int main()
 
             // instance
             {"48 89 5C 24 ? 48 89 4C 24 ? 55 56 57 41 54 41 55 41 56 41 57 48 8D 6C 24 ? 48 81 EC ? ? ? ? 4C 8B F1 33 FF", "new", "instance"},
-            {"48 89 5C 24 ? 55 56 57 41 54 41 55 41 56 41 57 48 83 EC ? 48 8B D9 48 85 C9", "fromExisting", "instance"}
+            {"48 89 5C 24 ? 55 56 57 41 54 41 55 41 56 41 57 48 83 EC ? 48 8B D9 48 85 C9", "fromExisting", "instance"},
+
+            // These might be RakNet functions I'm pretty sure but DON'T count on it
+            {"48 89 5C 24 ? 55 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? 48 8B DA 4C 8B E9 44 8B 0D", "ProcessNetworkPacket", "raknet"},
+            {"48 89 5C 24 ? 48 89 74 24 ? 48 89 7C 24 ? 55 41 54 41 55 41 56 41 57 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? 49 8B C1", "ReportNetworkError", "raknet"},
+            {"48 89 5C 24 ? 48 89 74 24 ? 55 57 41 54 41 56 41 57 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? 49 63 F0", "HandleConnectionState", "raknet"},
+
+            // This is just for debugging, for externals
+            // if these change then something with roblox's compression itself changed
+
+            {"48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 48 83 EC ? 66 0F 6F 1D", "compress", "Luau__Bytecode"},
+            {"40 53 48 83 EC ? 48 8B 1D ? ? ? ? 48 8D 05", "functionContainer", "Luau__Bytecode"}
+            // functionContainer contains the functions for the compress, decompress and prb some more
     };
 
     uintptr_t startAddress = moduleBase;
