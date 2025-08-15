@@ -331,7 +331,8 @@ int main()
             // if these change then something with roblox's compression itself changed
 
             {"48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 48 83 EC ? 66 0F 6F 1D", "compress", "Luau__Bytecode"},
-            {"40 53 48 83 EC ? 48 8B 1D ? ? ? ? 48 8D 05", "functionContainer", "Luau__Bytecode"}
+            {"40 53 48 83 EC ? 48 8B 1D ? ? ? ? 48 8D 05", "functionContainer", "Luau__Bytecode"},
+            {"48 89 5C 24 ? 48 89 74 24 ? 48 89 7C 24 ? 55 41 54 41 55 41 56 41 57 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? 4D 8B F1 49 8B F0 4C 8B E2 4C 8B E9", "signBytecode", "Luau__Bytecode"}
             // functionContainer contains the functions for the compress, decompress and prb some more
     };
 
